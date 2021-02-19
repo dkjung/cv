@@ -1,0 +1,253 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A clean template for an academic CV
+%
+% Uses tabularx to create two column entries (date and job/edu/citation).
+% Defines commands to make adding entries simpler.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt, a4paper]{article}
+
+% Useful aliases
+\newcommand{\SNUCSE}{Department of Computer Science and Engineering}
+\newcommand{\SNU}{Seoul National University}
+\newcommand{\SR}{Samsung Research}
+\newcommand{\SAMSUNG}{Samsung Electronics}
+
+% Identifying information
+\newcommand{\Title}{Curriculum Vit\ae}
+\newcommand{\FirstName}{Daekyoung}
+\newcommand{\LastName}{Jung}
+\newcommand{\Initials}{D }
+\newcommand{\MyName}{\FirstName\ \LastName}
+\newcommand{\Me}{\textbf{\Initials \LastName}}  % For citations
+\newcommand{\Email}{daekyoung.jung@gmail.com}
+\newcommand{\PersonalWebsite}{https://dkjung.github.io/}
+\newcommand{\LabWebsite}{compgeolab.org}
+\newcommand{\ORCID}{0000-0001-7947-3772}
+\newcommand{\Affiliation}{\SR \\ \SAMSUNG}
+\newcommand{\Address}{
+  56 Seongchon-gil, Yangjae 1(il)-dong, Seocho-gu, Seoul
+}
+
+% Names for citing coauthors
+\newcommand{\Val}{Barbosa, VCF}
+\newcommand{\Bi}{Oliveira Jr, VC}
+\newcommand{\Seo}{Seo, J}
+
+
+% Template configuration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Disable hyphenation
+\usepackage[none]{hyphenat}
+
+% Control the font size
+\usepackage{anyfontsize}
+
+% Template variables for styling
+\newcommand{\TablePad}{\vspace{-0.4cm}}
+\newcommand{\SoftwareTitle}[1]{{\bfseries #1}}
+\newcommand{\TableTitle}[1]{{\fontsize{12pt}{0}\selectfont \itshape #1}}
+
+% For fancy and multipage tables
+\usepackage{tabularx}
+\usepackage{ltablex}
+
+% Define a new environment to place all CV entries in a 2-column table.
+% Left column are the dates, right column the entries.
+\usepackage{environ}
+\NewEnviron{EntriesTable}{
+\TablePad
+\begin{tabularx}{\textwidth}{@{}p{0.1\textwidth}@{\hspace{0.02\textwidth}}p{0.88\textwidth}@{}}
+  \BODY
+\end{tabularx}
+}
+
+% Macros to add links
+\newcommand{\DOI}[1]{doi:\href{https://doi.org/#1}{#1}}
+\newcommand{\Preprint}[1]{\newline • Preprint: \DOI{#1}}
+\newcommand{\Youtube}[1]{\newline • Recording: \href{https://www.youtube.com/watch?v=#1}{youtube.com/watch?v=#1}}
+\newcommand{\GitHub}[1]{\newline • GitHub: \href{https://github.com/#1}{#1}}
+\newcommand{\Role}[1]{\newline • Role: #1}
+\newcommand{\Website}[1]{\newline • Website: \href{https://#1}{#1}}
+\newcommand{\Slides}[1]{\newline • Slides: \href{https://#1}{#1}}
+\newcommand{\SlidesDOI}[1]{\newline • Slides: \DOI{#1}}
+\newcommand{\PosterDOI}[1]{\newline • Poster: \DOI{#1}}
+
+% Tags to mark publications
+\newcommand{\OA}{\newline • Open-access}
+%\newcommand{\OA}{}
+\newcommand{\Invited}{\newline • \textbf{Invited talk}}
+
+% Macros to set the year and duration on the left column
+\newcommand{\Duration}[2]{\fontsize{10pt}{0}\selectfont #1--#2}
+\newcommand{\Year}[1]{\fontsize{10pt}{0}\selectfont #1}
+\newcommand{\Ongoing}{}
+%\newcommand{\Ongoing}{$\ast$}
+\newcommand{\Future}{future}
+\newcommand{\Review}{in review}
+\newcommand{\Accepted}{accepted}
+\newcommand{\Appointment}[4]{\textbf{#1} \newline #2 \newline #3 \newline #4}
+
+% Define command to insert month name and year as date
+\usepackage{datetime}
+\newdateformat{monthyear}{\monthname[\THEMONTH], \THEYEAR}
+
+% Set the page margins
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+
+% No indentation
+\setlength\parindent{0cm}
+
+% Increase the line spacing
+\renewcommand{\baselinestretch}{1.1}
+% and the spacing between rows in tables
+\renewcommand{\arraystretch}{1.5}
+
+% Remove space between items in itemize and enumerate
+\usepackage{enumitem}
+\setlist{nosep}
+
+% Use custom colors
+\usepackage[usenames,dvipsnames]{xcolor}
+
+% Set fonts. Requires compilation with xelatex
+\usepackage{fontspec}  % required to make older xelatex compile with UTF8
+
+% Configure the font style for sections
+\usepackage{sectsty}
+\sectionfont{\vspace{0.5cm}\bfseries\fontsize{12pt}{0}\selectfont\uppercase}
+\subsectionfont{\vspace{0.2cm}\mdseries\fontsize{12pt}{0}\selectfont\uppercase}
+
+% Set the spacing for sections
+%\usepackage{titlesec}
+%\titlespacing{\section}{0pt}{0cm}{0.3cm}
+%\titlespacing{\subsection}{0pt}{0.3cm}{0.3cm}
+
+% Disable number of sections. Use this instead of "section*" so that the sections still
+% appear as PDF bookmarks. Otherwise, would have to add the table of contents entries
+% manually.
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother
+
+% Set fancy headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\chead{
+  \fontsize{10pt}{12pt}\selectfont
+  \MyName
+  \hspace{0.2cm} -- \hspace{0.2cm}
+  \Title
+  \hspace{0.2cm} -- \hspace{0.2cm}
+  \monthyear\today
+}
+\rhead{}
+\cfoot{\fontsize{10pt}{0}\selectfont \thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% Metadata for the PDF output and control of hyperlinks
+\usepackage[colorlinks=true]{hyperref}
+\hypersetup{
+  pdftitle={\MyName\ - \Title},
+  pdfauthor={\MyName},
+  linkcolor=blue,
+  citecolor=blue,
+  filecolor=black,
+  urlcolor=MidnightBlue
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+% No header for the first page
+\thispagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HEADER
+{\fontsize{24pt}{0}\selectfont\MyName}\\[-0.1cm]
+\rule{\textwidth}{0.2pt}
+\begin{minipage}[t]{0.595\textwidth}
+  \Affiliation
+  \\
+  \Address
+\end{minipage}
+\begin{minipage}[t]{0.405\textwidth}
+  \begin{flushright}
+  Last updated: \monthyear\today
+  \\
+    ORCID: \href{https://orcid.org/\ORCID}{\ORCID}
+    \\
+    email: \href{mailto:\Email}{\Email}
+    % \\
+    % Website: \href{https://www.\PersonalWebsite}{\PersonalWebsite}
+  \end{flushright}
+\end{minipage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Professional Appointments}
+
+\begin{EntriesTable}
+  \Duration{2016}{}  &
+  \Appointment{Staff Engineer}{\SR}{\SAMSUNG, South Korea}
+\end{EntriesTable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Education}
+
+\begin{EntriesTable}
+  \Duration{2010}{2016}  &
+  \textbf{PhD in Computer Science and Engineering}, Seoul National University, South Korea
+  \\
+  \Duration{2003}{2009}  &
+  \textbf{BSc in Computer Science and Engineering}, Seoul National University, South Korea
+\end{EntriesTable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Publications}
+
+\begin{EntriesTable}
+%\Year{\Review}  &
+\Year{2017}  &
+  S L'Yi, \Me, M Oh, B Kim, RJ Freishtat, M Giri, E Hoffman, J Seo.
+  miRTarVis+: Web-based interactive visual analytics tool for microRNA target predictions.
+  \emph{Methods}.
+  \DOI{10.1016/j.ymeth.2017.06.004}.
+  \\
+\Year{2017}  &
+  \Me, W Kim, H Song, J Hwang, B Lee, B Kim, J Seo.
+  ChartSense: Interactive data extraction from chart images.
+  \emph{CHI '17: Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems}.
+  \DOI{10.1145/3025453.3025957}.
+  \\
+\Year{2017}  &
+  \Me, S L'Yi, B Kim, J Seo.
+  Interactive visual analysis of miRNA target prediction results.
+  \emph{2017 IEEE International Conference on Big Data and Smart Computing}.
+  \DOI{10.1109/BIGCOMP.2017.7881694}.
+  \\
+\Year{2016} &
+  H Chae, S Lee, S Seo, \Me, H Chang, KP Nephew, S Kim.
+  BioVLAB-mCpG-SNP-EXPRESS: A system for multi-level and multi-perspective analysis and exploration of DNA methylation, sequence variation (SNPs), and gene expression from multi-omics data.
+  \emph{Methods}.
+  \DOI{10.1016/j.ymeth.2016.07.019}.
+  \\
+\Year{2015} &
+  \Me, B Kim, RJ Freishtat, M Giri, E Hoffman, J Seo.
+  miRTarVis: an interactive visual analysis tool for microRNA-mRNA expression profile data.
+  \emph{BMC Proceedings volume 9, Article number: S2 (2015)}.
+  \DOI{10.1186/1753-6561-9-S6-S2}.
+  \\
+\Year{2011} &
+  K Koh, H Song, \Me, B Kim, J Seo.
+  What do you see when you interact with friends online? face, hand, or canvas?.
+  \emph{CHI EA '11: CHI '11 Extended Abstracts on Human Factors in Computing Systems}.
+  \DOI{10.1145/1979742.1979911}.
+ 
+\end{EntriesTable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

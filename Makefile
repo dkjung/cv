@@ -1,6 +1,6 @@
 # The name of the main .tex file to build.
 # Other files can be included into this one.
-DOCUMENT = leonardo_uieda_cv
+DOCUMENT = daekyoung_jung_cv
 OUTPUT = output
 PDF = $(OUTPUT)/$(DOCUMENT).pdf
 
